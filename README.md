@@ -1,11 +1,29 @@
-# Lathe
+# Registry
 
-## Get started
+## Get Started
 
-### Terms
+~~~ts
+import { RegistryUtil } from '@typinghare/registry'
 
-* **Raw material** refers to the basic materials or substances that are used to manufacture or create product.
-* **Processing material** refers to additional material, beyond the raw material, used for processing.
-* **Blank** refers to a partially processed or semi-finished piece of material that is intended to be further worked on to create a specific product.
-* **Intermediate product** is a stage where a product has undergone some processing and transformation but is not yet in its final form.
-* **Final product** refers to a fully processed and assembled item that is ready for use.
+// Create a registry that accepts string resources
+const registry = RegistryUtil.createRegistry<string>('gem')
+
+// Create resource locations
+const locEnglishHelloWorld = RegistryUtil.createLoc('english_hello_world')
+const locChineseHelloWorld = RegistryUtil.createLoc('chinese_hello_world')
+
+// Register resources
+registry.register(locEnglishHelloWorld, 'Hello, world!')
+registry.register(locChineseHelloWorld, '你好，世界!')
+
+// Retrieve resources by their locations
+const englishHelloWorld = registry.getByLoc(locEnglishHelloWorld)
+const chineseHelloWorld = registry.getByLoc(locChineseHelloWorld)
+
+expect(englishHelloWorld).toBe('Hello, world!')
+expect(chineseHelloWorld).toBe('你好，世界!')
+
+// Get the resource's ID
+const refChineseHelloWorld = registry.getRef(locChineseHelloWorld)
+expect(refChineseHelloWorld.getId()).toBe(1)
+~~~
